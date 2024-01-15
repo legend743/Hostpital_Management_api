@@ -2,20 +2,27 @@ package com.example.Hospital.ServiceImpl;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.Hospital.DTO.DoctorsDetailsDTO;
 import com.example.Hospital.DTO.Host_dto;
 import com.example.Hospital.DTO.Host_patient;
+import com.example.Hospital.Dao.DoctorDetailsDao;
 import com.example.Hospital.Dao.Hosp_Dao;
-
+import com.example.Hospital.Entity.DoctorsDetails;
 import com.example.Hospital.Entity.Hosp_Entity;
 import com.example.Hospital.Service.Hosp_service;
 @Service
 public class Host_serv_Impl implements Hosp_service {
 	@Autowired
 	private Hosp_Dao hosp_dao;
+	@Autowired
+	private DoctorDetailsDao doctorDao;
+	private static final Logger logger = LoggerFactory.getLogger(Host_serv_Impl.class);
 
 	
 	
@@ -34,8 +41,10 @@ public class Host_serv_Impl implements Hosp_service {
 		 host.setHospital(host_dto.getHospital());
 		 Hosp_Entity host_save=hosp_dao.save(host);
 		 return host_save.getId();
+		 
 		     	
 			} 
+	
 //	}
 
 
@@ -45,6 +54,8 @@ public class Host_serv_Impl implements Hosp_service {
 //		return patientdao.findById(id); 	 		
 //		
 //	}
+	
+	//------------------------------------get request of patients-------------------------------------------------------
   
 	 @Override
 	    public Optional<Host_patient> get_details(Long id) {
@@ -57,4 +68,38 @@ public class Host_serv_Impl implements Hosp_service {
 	        return dto;
 	    }
 
-}
+	    
+	  //--------------------------------------this is save doctor details code------------------------------------------------
+			@Override
+			public String saveDDetails(DoctorsDetailsDTO doctordetailsdto) {
+				 System.out.println("DTO Values: " + doctordetailsdto.toString());
+			    DoctorsDetails doctordetails = new DoctorsDetails();
+			    logger.debug("Received request to save doctor details: {}", doctordetailsdto);
+			    doctordetails.setName(doctordetailsdto.getName());
+			    doctordetails.setAddress(doctordetailsdto.getAddress());
+			    doctordetails.setAge(doctordetailsdto.getAge());
+			    doctordetails.setExperience_in_years(doctordetailsdto.getExperience_in_years());
+			    doctordetails.setGender(doctordetailsdto.getGender());
+			    doctordetails.setHospital_id(doctordetailsdto.getHospital_id());
+			    doctordetails.setSpecialization(doctordetailsdto.getSpecialization());
+			    doctordetails.setRegistration(doctordetailsdto.getRegistration());
+			    doctordetails.setHospital_ward(doctordetailsdto.getHospital_ward());
+			    doctordetails.setTreated_Patient(doctordetailsdto.getTreated_Patient());
+			    doctordetails.setTiming(doctordetailsdto.getTiming());
+			    doctordetails.setWorking_days(doctordetailsdto.getWorking_days());
+			    System.out.println("Entity Values: " + doctordetails.toString());
+			    logger.info("Doctor details saved successfully");
+			    doctorDao.save(doctordetails);
+			    return "Details saved successfully";
+			
+			
+		}
+
+	
+	}
+
+
+
+	    
+	    
+
