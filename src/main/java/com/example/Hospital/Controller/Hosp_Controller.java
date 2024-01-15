@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.Hospital.DTO.DoctorsDetailsDTO;
 import com.example.Hospital.DTO.Host_dto;
 import com.example.Hospital.DTO.Host_patient;
-
+import com.example.Hospital.Entity.DoctorsDetails;
 import com.example.Hospital.Service.Hosp_service;
 
 //@RestController
@@ -57,5 +58,12 @@ public class Hosp_Controller {
     public ResponseEntity<Host_patient> getDetails(@PathVariable Long id) {
         Optional<Host_patient> responseDTO = hospService.get_details(id);
         return responseDTO.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+    
+    
+    @PostMapping("/doctordetails")
+    public String saveD_details(@RequestBody DoctorsDetailsDTO doctordetailsdto) {
+    	return hospService.saveDDetails(doctordetailsdto);
+    	 
     }
 }
