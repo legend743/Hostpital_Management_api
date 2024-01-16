@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Hospital.DTO.DoctorsDetailsDTO;
 import com.example.Hospital.DTO.Host_dto;
 import com.example.Hospital.DTO.Host_patient;
+import com.example.Hospital.DTO.PatientsDetailsDto;
 import com.example.Hospital.Entity.DoctorsDetails;
 import com.example.Hospital.Service.Hosp_service;
 
@@ -70,5 +71,10 @@ public class Hosp_Controller {
     public ResponseEntity<DoctorsDetailsDTO> getdoctorsdetail(@PathVariable Long id) {
     	Optional<DoctorsDetailsDTO> responseDto=hospService.getdoctorsdetail(id)
 ;    	return responseDto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+//    this is save pateints details controller
+    @PostMapping("/savepatients")
+    public String savePatients(@RequestBody PatientsDetailsDto patientsdetails) {
+    	return hospService.savepatientDetails(patientsdetails);
     }
 }

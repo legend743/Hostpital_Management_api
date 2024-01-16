@@ -11,10 +11,13 @@ import org.springframework.stereotype.Service;
 import com.example.Hospital.DTO.DoctorsDetailsDTO;
 import com.example.Hospital.DTO.Host_dto;
 import com.example.Hospital.DTO.Host_patient;
+import com.example.Hospital.DTO.PatientsDetailsDto;
 import com.example.Hospital.Dao.DoctorDetailsDao;
 import com.example.Hospital.Dao.Hosp_Dao;
+import com.example.Hospital.Dao.PatientDetailsDao;
 import com.example.Hospital.Entity.DoctorsDetails;
 import com.example.Hospital.Entity.Hosp_Entity;
+import com.example.Hospital.Entity.PatientDetails;
 import com.example.Hospital.Service.Hosp_service;
 @Service
 public class Host_serv_Impl implements Hosp_service {
@@ -23,6 +26,8 @@ public class Host_serv_Impl implements Hosp_service {
 	
 	@Autowired
 	private DoctorDetailsDao doctorDao;
+	@Autowired
+	private PatientDetailsDao pateintdetails;
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(Host_serv_Impl.class);
@@ -119,6 +124,29 @@ public class Host_serv_Impl implements Hosp_service {
 			    dto.setHospital_ward(entity.getHospital_ward());
 			    
 			    return dto;
+			}
+
+			@Override
+			public String savepatientDetails(PatientsDetailsDto patientsdetailsdto) {
+				// TODO Auto-generated method stub
+				PatientDetails patientdetails=new PatientDetails();
+				patientdetails.setFullName(patientsdetailsdto.getFullName());
+				patientdetails.setAddress(patientsdetailsdto.getAddress());
+				patientdetails.setEmailAddress(patientsdetailsdto.getEmailAddress());
+				patientdetails.setBloodPressure(patientsdetailsdto.getBloodPressure());
+				patientdetails.setDateOfBirth(patientsdetailsdto.getDateOfBirth());
+				patientdetails.setGender(patientsdetailsdto.getGender());
+				patientdetails.setHeight(patientsdetailsdto.getHeight());
+				patientdetails.setHomePhoneNumber(patientsdetailsdto.getHomePhoneNumber());
+				patientdetails.setInsuranceDetails(patientsdetailsdto.getInsuranceDetails());
+				patientdetails.setMaritalStatus(patientsdetailsdto.getMaritalStatus());
+				patientdetails.setPatientImage(patientsdetailsdto.getPatientImage());
+				patientdetails.setNationality(patientsdetailsdto.getNationality());
+				patientdetails.setSocialSecurityNumber(patientsdetailsdto.getSocialSecurityNumber());
+				patientdetails.setWeight(patientsdetailsdto.getWeight());
+				
+				pateintdetails.save(patientdetails);
+				return "patients details saved successfully";
 			}
 
 

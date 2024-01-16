@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.example.Hospital.DTO.DoctorsDetailsDTO;
 import com.example.Hospital.DTO.Host_dto;
 import com.example.Hospital.DTO.Host_patient;
+import com.example.Hospital.DTO.PatientsDetailsDto;
 
 public interface Hosp_service {
 	Long add_details(Host_dto host_dto);
@@ -20,6 +21,10 @@ public interface Hosp_service {
 	
 	String saveDDetails(DoctorsDetailsDTO doctordetailsdto);
 	Optional<DoctorsDetailsDTO> getdoctorsdetail(Long id);
+
+
+
+	String savepatientDetails(PatientsDetailsDto patientsdetails);
 	
 	
 	
