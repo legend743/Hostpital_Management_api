@@ -77,4 +77,9 @@ public class Hosp_Controller {
     public String savePatients(@RequestBody PatientsDetailsDto patientsdetails) {
     	return hospService.savepatientDetails(patientsdetails);
     }
+    @GetMapping("/getpatient/{id}")
+    public ResponseEntity<PatientsDetailsDto> getpatients(@PathVariable Long id){
+    	Optional<PatientsDetailsDto> patientdto=hospService.getpatientsdetails(id);
+    			return patientdto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
 }

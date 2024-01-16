@@ -1,13 +1,10 @@
 package com.example.Hospital.ServiceImpl;
-
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.Hospital.DTO.DoctorsDetailsDTO;
 import com.example.Hospital.DTO.Host_dto;
 import com.example.Hospital.DTO.Host_patient;
@@ -125,10 +122,10 @@ public class Host_serv_Impl implements Hosp_service {
 			    
 			    return dto;
 			}
-
+//method for handling patientdetails
 			@Override
 			public String savepatientDetails(PatientsDetailsDto patientsdetailsdto) {
-				// TODO Auto-generated method stub
+			
 				PatientDetails patientdetails=new PatientDetails();
 				patientdetails.setFullName(patientsdetailsdto.getFullName());
 				patientdetails.setAddress(patientsdetailsdto.getAddress());
@@ -149,6 +146,25 @@ public class Host_serv_Impl implements Hosp_service {
 				return "patients details saved successfully";
 			}
 
+		//method for getting patients details
+			@Override
+			public Optional<PatientsDetailsDto> getpatientsdetails(Long id) {
+				
+				return pateintdetails.findById(id).map(this::patientEntitytoDto);
+				}
+			private PatientsDetailsDto patientEntitytoDto(PatientDetails patiententity) {
+				//here i have used same dto for getting the value 
+				//but i have set only few entity to get from database hence you will get the value of these entity and 
+				//will get nul value in your get api
+				//if you want to get those details and not get name of those entity then you should make
+				//new dto file do not use present dto file
+				PatientsDetailsDto patientsdto=new PatientsDetailsDto();
+				patientsdto.setFullName(patiententity.getFullName());
+				patientsdto.setAddress(patiententity.getAddress());
+				patientsdto.setGender(patiententity.getGender());
+				patientsdto.setHeight(patiententity.getHeight());
+				return  patientsdto;
+			}
 
 	
 	}
