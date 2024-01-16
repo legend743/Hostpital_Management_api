@@ -20,8 +20,11 @@ import com.example.Hospital.Service.Hosp_service;
 public class Host_serv_Impl implements Hosp_service {
 	@Autowired
 	private Hosp_Dao hosp_dao;
+	
 	@Autowired
 	private DoctorDetailsDao doctorDao;
+	
+	
 	private static final Logger logger = LoggerFactory.getLogger(Host_serv_Impl.class);
 
 	
@@ -94,6 +97,30 @@ public class Host_serv_Impl implements Hosp_service {
 			
 			
 		}
+
+			@Override
+			public Optional<DoctorsDetailsDTO> getdoctorsdetail(Long id) {
+			    return doctorDao.findById(id).map(this::convertDoctorEntityToDTO);
+			}
+
+			private DoctorsDetailsDTO convertDoctorEntityToDTO(DoctorsDetails entity) {
+			    DoctorsDetailsDTO dto = new DoctorsDetailsDTO();
+			    dto.setName(entity.getName());
+			    dto.setSpecialization(entity.getSpecialization());
+			    dto.setGender(entity.getGender());
+			    dto.setAge(entity.getAge());
+			    dto.setAddress(entity.getAddress());
+			    dto.setExperience_in_years(entity.getExperience_in_years());
+			    dto.setTreated_Patient(entity.getTreated_Patient());
+			    dto.setRegistration(entity.getRegistration());
+			    dto.setWorking_days(entity.getWorking_days());
+			    dto.setTiming(entity.getTiming());
+			    dto.setHospital_id(entity.getHospital_id());
+			    dto.setHospital_ward(entity.getHospital_ward());
+			    
+			    return dto;
+			}
+
 
 	
 	}

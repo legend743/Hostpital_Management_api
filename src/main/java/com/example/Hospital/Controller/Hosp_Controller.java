@@ -61,9 +61,14 @@ public class Hosp_Controller {
     }
     
     
-    @PostMapping("/doctordetails")
+    @PostMapping("/savedoctordetails")
     public String saveD_details(@RequestBody DoctorsDetailsDTO doctordetailsdto) {
     	return hospService.saveDDetails(doctordetailsdto);
     	 
+    }
+    @GetMapping("/getdoctordetails/{id}")
+    public ResponseEntity<DoctorsDetailsDTO> getdoctorsdetail(@PathVariable Long id) {
+    	Optional<DoctorsDetailsDTO> responseDto=hospService.getdoctorsdetail(id)
+;    	return responseDto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 }

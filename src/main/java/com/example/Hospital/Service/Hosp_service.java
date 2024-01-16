@@ -18,8 +18,9 @@ public interface Hosp_service {
 	Optional<Host_patient> get_details(Long id);
 	
 	
-	
 	String saveDDetails(DoctorsDetailsDTO doctordetailsdto);
+	Optional<DoctorsDetailsDTO> getdoctorsdetail(Long id);
+	
 	
 	
 

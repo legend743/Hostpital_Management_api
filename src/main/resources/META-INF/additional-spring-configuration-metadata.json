@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "HTTP_PORT",
+    "type": "java.lang.String",
+    "description": "A description for 'HTTP_PORT'"
+  },
+  {
+    "name": "SubscriberCache.CacheSize",
+    "type": "java.lang.String",
+    "description": "A description for 'SubscriberCache.CacheSize'"
+  }
+]}
