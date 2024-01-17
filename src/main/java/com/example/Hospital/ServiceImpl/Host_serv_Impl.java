@@ -5,13 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.Hospital.DTO.AppointmentsDto;
 import com.example.Hospital.DTO.DoctorsDetailsDTO;
 import com.example.Hospital.DTO.Host_dto;
 import com.example.Hospital.DTO.Host_patient;
 import com.example.Hospital.DTO.PatientsDetailsDto;
+import com.example.Hospital.Dao.AppointmentsDao;
 import com.example.Hospital.Dao.DoctorDetailsDao;
 import com.example.Hospital.Dao.Hosp_Dao;
 import com.example.Hospital.Dao.PatientDetailsDao;
+import com.example.Hospital.Entity.Appointment;
 import com.example.Hospital.Entity.DoctorsDetails;
 import com.example.Hospital.Entity.Hosp_Entity;
 import com.example.Hospital.Entity.PatientDetails;
@@ -25,6 +29,8 @@ public class Host_serv_Impl implements Hosp_service {
 	private DoctorDetailsDao doctorDao;
 	@Autowired
 	private PatientDetailsDao pateintdetails;
+	@Autowired
+	private AppointmentsDao appointmentDao;
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(Host_serv_Impl.class);
@@ -166,8 +172,51 @@ public class Host_serv_Impl implements Hosp_service {
 				return  patientsdto;
 			}
 
+		
+
+			
+		    @Override
+		    public String bookappointment(AppointmentsDto appointmentDTO) {
+		        // Check if the doctor exists
+		        Optional<DoctorsDetails> optionalDoctor = doctorDao.findById(appointmentDTO.getDoctorId());
+
+		        if (optionalDoctor.isPresent()) {
+		            // Map AppointmentDTO to Appointment entity
+		            Appointment appointment = mapDtoToEntity(appointmentDTO);
+
+		            // Set the doctor
+		            appointment.setDoctor(optionalDoctor.get());
+
+		            // Save the appointment
+		            appointmentDao.save(appointment);
+
+		            // Map the saved Appointment entity back to AppointmentDTO
+//		            return mapEntityToDto(appointment);
+		            return "patients appointment book";
+		        } else {
+		            // Handle case where the doctor does not exist
+		            // You may throw an exception or return an appropriate response
+		            return "doctor not available";
+		        }
+		    }
+
+		    // Other service methods...
+
+		    // Helper method to map AppointmentDTO to Appointment entity
+		    private Appointment mapDtoToEntity(AppointmentsDto appointmentDTO) {
+		        Appointment appointment = new Appointment();
+		        appointment.setPatient_id(appointmentDTO.getPatientId());
+		        appointment.setAppointmentTime(appointmentDTO.getAppointmentTime());
+		        appointment.setStatus(appointmentDTO.getStatus());
+		        appointment.setPatientName(appointmentDTO.getPatientName());
+		        // Set other fields as needed
+		        return appointment;
+		    }
+
+		  
+		}
 	
-	}
+	
 
 
 

@@ -1,14 +1,16 @@
 package com.example.Hospital.Entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Entity
 //@Data
@@ -43,6 +45,8 @@ private String timing;
 private String Hospital_id;
 @Column(name="Hospital_ward")
 private String Hospital_ward;
+@OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+private List<Appointment> appointments;
 
 
 //first i have used lombok for making getter setter and constrctor but it is not working hence i decided to write my own getter setters

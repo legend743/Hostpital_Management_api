@@ -3,6 +3,7 @@ package com.example.Hospital.Service;
 import java.lang.StackWalker.Option;
 import java.util.Optional;
 
+import com.example.Hospital.DTO.AppointmentsDto;
 import com.example.Hospital.DTO.DoctorsDetailsDTO;
 import com.example.Hospital.DTO.Host_dto;
 import com.example.Hospital.DTO.Host_patient;
@@ -30,6 +31,10 @@ public interface Hosp_service {
 
 
 	Optional<PatientsDetailsDto> getpatientsdetails(Long id);
+
+
+
+	String bookappointment(AppointmentsDto appoinmentsdto);
 	
 	
 	
