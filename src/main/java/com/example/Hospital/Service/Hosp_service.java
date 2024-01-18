@@ -35,6 +35,10 @@ public interface Hosp_service {
 
 
 	String bookappointment(AppointmentsDto appoinmentsdto);
+
+
+
+	Optional<AppointmentsDto> getappointment(Long id);
 	
 	
 	

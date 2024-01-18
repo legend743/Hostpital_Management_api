@@ -1,3 +1,4 @@
+
 package com.example.Hospital.Controller;
 
 import java.util.Optional;
@@ -86,5 +87,10 @@ public class Hosp_Controller {
     public ResponseEntity<PatientsDetailsDto> getpatients(@PathVariable Long id){
     	Optional<PatientsDetailsDto> patientdto=hospService.getpatientsdetails(id);
     			return patientdto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+    @GetMapping("/getappointmentdetails/{id}")
+    public ResponseEntity<AppointmentsDto> getAppointments(@PathVariable Long id){
+    	Optional<AppointmentsDto> appointmentdto=hospService.getappointment(id);
+    	return appointmentdto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 }

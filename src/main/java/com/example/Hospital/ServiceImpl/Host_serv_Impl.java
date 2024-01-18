@@ -213,6 +213,19 @@ public class Host_serv_Impl implements Hosp_service {
 		        return appointment;
 		    }
 
+			@Override
+			public Optional<AppointmentsDto> getappointment(Long id) {
+				
+				return appointmentDao.findById(id).map(this::convertAppointmentEntitytoDto);
+			}
+			private AppointmentsDto convertAppointmentEntitytoDto(Appointment appEntity) {
+				AppointmentsDto appointdto=new AppointmentsDto();
+				appointdto.setAppointmentId(appEntity.getAppointmentId());
+				appointdto.setAppointmentTime(appEntity.getAppointmentTime());
+				appointdto.setPatientName(appEntity.getPatientName());
+				appointdto.setStatus(appEntity.getStatus());
+				return appointdto;
+			}
 		  
 		}
 	
