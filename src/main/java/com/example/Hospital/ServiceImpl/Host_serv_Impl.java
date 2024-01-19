@@ -226,6 +226,44 @@ public class Host_serv_Impl implements Hosp_service {
 				appointdto.setStatus(appEntity.getStatus());
 				return appointdto;
 			}
+
+			@Override
+			public Optional<AppointmentsDto> rescheduleAppoint(Long id, Optional<AppointmentsDto> appointmentdto) {
+				
+				Optional<Appointment> optionalAppointment  =appointmentDao.findById(id);
+				System.out.println("this isoptional info "+optionalAppointment);
+				if(optionalAppointment.isPresent()) {
+					Appointment appointment=optionalAppointment.get();
+					AppointmentsDto appointmentdtos=appointmentdto.get();
+					//update the field using new dto values
+					appointment.setAppointmentTime(appointmentdtos.getAppointmentTime());
+					appointment.setStatus(appointmentdtos.getStatus());
+					//save the updated dao
+					appointmentDao.save(appointment);
+					//return the updated dto
+					return Optional.of(appointmentdtos);
+					
+				}
+				else {
+				//return the empty status if the appointmnt or Dto is not found
+					return Optional.empty();				}
+
+			}
+
+			@Override
+			public boolean deleted(Long id) {
+				//first check whether apppointment is scheduled or not
+				Optional<Appointment> appointmentdto=appointmentDao.findById(id);
+				if(appointmentdto.isPresent()) {
+				//
+				
+				appointmentDao.deleteById(id);
+				return true;
+				}
+				else {
+					return false;
+				}
+			}
 		  
 		}
 	

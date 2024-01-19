@@ -39,8 +39,16 @@ public interface Hosp_service {
 
 
 	Optional<AppointmentsDto> getappointment(Long id);
+
+
+
+	Optional<AppointmentsDto> rescheduleAppoint(Long id, Optional<AppointmentsDto> appointmentdto);
+
+
+
+	boolean deleted(Long id);
 	
-	
+
 	
 	
 

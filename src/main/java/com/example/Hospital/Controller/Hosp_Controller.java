@@ -5,9 +5,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -92,5 +94,28 @@ public class Hosp_Controller {
     public ResponseEntity<AppointmentsDto> getAppointments(@PathVariable Long id){
     	Optional<AppointmentsDto> appointmentdto=hospService.getappointment(id);
     	return appointmentdto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+//    @PutMapping("/updateappointments/{id}")
+//    public ResponseEntity<AppointmentsDto> updateAppoint(@PathVariable Long id, @RequestBody AppointmentsDto appoinmentdto){
+//    Optional<AppointmentsDto>appointmentdto=hospService.rescheduleAppoint(id,appointmentdto);
+//    
+//    return appointmentdto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+//    } 
+    @PutMapping("/updateappointments/{id}")
+    public ResponseEntity<AppointmentsDto> updateAppoint(@PathVariable Long id, @RequestBody Optional<AppointmentsDto> appoinmentdto) {
+        Optional<AppointmentsDto> appointmentdto = hospService.rescheduleAppoint(id, appoinmentdto);
+
+        return appointmentdto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+    @DeleteMapping("/cancell/{id}")
+    public String cancellappointmrnt(@PathVariable Long id) {
+    	boolean deleted=hospService.deleted(id);
+    	if(deleted) {
+    		return "appointment cancelled";
+    	}
+    	else {
+    		return "appointment is not found";
+    	}
+    	
     }
 }
