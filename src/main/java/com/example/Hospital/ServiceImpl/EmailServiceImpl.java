@@ -13,7 +13,7 @@ import com.example.Hospital.Service.emailService;
 
 @Service
 public class EmailServiceImpl implements emailService {
-    String message = "testing for mail ";
+    String message = "write the eamail which you want to send";
     String subject = "Testing mail";
     String to = "mail";
     String cc = "mailtowhom wanna send ";
