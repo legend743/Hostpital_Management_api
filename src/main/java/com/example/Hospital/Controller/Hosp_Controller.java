@@ -19,7 +19,6 @@ import com.example.Hospital.DTO.DoctorsDetailsDTO;
 import com.example.Hospital.DTO.Host_dto;
 import com.example.Hospital.DTO.Host_patient;
 import com.example.Hospital.DTO.PatientsDetailsDto;
-import com.example.Hospital.Entity.DoctorsDetails;
 import com.example.Hospital.Service.Hosp_service;
 
 //@RestController

@@ -1,7 +1,5 @@
 package com.example.Hospital.Controller;
-
 import java.io.ByteArrayInputStream;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
