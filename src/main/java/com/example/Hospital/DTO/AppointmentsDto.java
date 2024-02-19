@@ -6,7 +6,7 @@ public class AppointmentsDto {
 
 	private Long appointmentId;
     private Long doctorId;
-    private Long patientId;
+    private String patientId;
     private Date appointmentTime;
     private String status;
     private String patientName;
@@ -20,7 +20,7 @@ public class AppointmentsDto {
 		super();
 	}
 
-	public AppointmentsDto(Long appointmentId, Long doctorId, Long patientId, Date appointmentTime, String status,
+	public AppointmentsDto(Long appointmentId, Long doctorId, String patientId, Date appointmentTime, String status,
 			String patientName) {
 		super();
 		this.appointmentId = appointmentId;
@@ -31,12 +31,12 @@ public class AppointmentsDto {
 		this.patientName = patientName;
 	}
 
-	public Long getAppointmentId() {
-		return appointmentId;
-	}
-	public void setAppointmentId(Long appointmentId) {
-		this.appointmentId = appointmentId;
-	}
+//	public Long getAppointmentId() {
+//		return appointmentId;
+//	}
+//	public void setAppointmentId(Long appointmentId) {
+//		this.appointmentId = appointmentId;
+//	}
 	public Long getDoctorId() {
 		return doctorId;
 	}
@@ -49,12 +49,16 @@ public class AppointmentsDto {
 	public void setPatientName(String patientName) {
 		this.patientName = patientName;
 	}
-	public Long getPatientId() {
+	
+	
+	public String getPatientId() {
 		return patientId;
 	}
-	public void setPatientId(Long patientId) {
+
+	public void setPatientId(String patientId) {
 		this.patientId = patientId;
 	}
+
 	public Date getAppointmentTime() {
 		return appointmentTime;
 	}

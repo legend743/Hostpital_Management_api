@@ -128,7 +128,7 @@ public class Host_serv_Impl implements Hosp_service {
 			    
 			    return dto;
 			}
-//method for handling patientdetails
+			//method for handling patient details
 			@Override
 			public String savepatientDetails(PatientsDetailsDto patientsdetailsdto) {
 			
@@ -186,6 +186,9 @@ public class Host_serv_Impl implements Hosp_service {
 
 		            // Set the doctor
 		            appointment.setDoctor(optionalDoctor.get());
+		            Long patientId = retrievePatientIdFromDTO(appointmentDTO); // You need to implement this method
+		            appointment.setPatient_id(patientId);
+
 
 		            // Save the appointment
 		            appointmentDao.save(appointment);
@@ -199,13 +202,22 @@ public class Host_serv_Impl implements Hosp_service {
 		            return "doctor not available";
 		        }
 		    }
+		    private Long retrievePatientIdFromDTO(AppointmentsDto appointmentDTO) {
+		        // Extract the numeric part of the patient ID
+		        String patientId = appointmentDTO.getPatientId().substring(2); // Remove the "pt" prefix
+
+		        // Parse the numeric part and increment it
+		        Long incrementedValue = Long.parseLong(patientId) + 1;
+
+		        return incrementedValue;
+		    }
 
 		    // Other service methods...
 
 		    // Helper method to map AppointmentDTO to Appointment entity
 		    private Appointment mapDtoToEntity(AppointmentsDto appointmentDTO) {
 		        Appointment appointment = new Appointment();
-		        appointment.setPatient_id(appointmentDTO.getPatientId());
+//		        appointment.setPatient_id(appointmentDTO.getPatientId());
 		        appointment.setAppointmentTime(appointmentDTO.getAppointmentTime());
 		        appointment.setStatus(appointmentDTO.getStatus());
 		        appointment.setPatientName(appointmentDTO.getPatientName());
@@ -220,7 +232,7 @@ public class Host_serv_Impl implements Hosp_service {
 			}
 			private AppointmentsDto convertAppointmentEntitytoDto(Appointment appEntity) {
 				AppointmentsDto appointdto=new AppointmentsDto();
-				appointdto.setAppointmentId(appEntity.getAppointmentId());
+//				appointdto.setAppointmentId(appEntity.getAppointmentId());
 				appointdto.setAppointmentTime(appEntity.getAppointmentTime());
 				appointdto.setPatientName(appEntity.getPatientName());
 				appointdto.setStatus(appEntity.getStatus());

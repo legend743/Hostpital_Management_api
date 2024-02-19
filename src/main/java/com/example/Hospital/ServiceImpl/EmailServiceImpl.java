@@ -8,8 +8,13 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.example.Hospital.Service.emailService;
+
+import org.slf4j.Logger;
+
 
 @Service
 public class EmailServiceImpl implements emailService {
@@ -18,9 +23,14 @@ public class EmailServiceImpl implements emailService {
     String to = "mail";
     String cc = "mailtowhom wanna send ";
     String from = "email by you want to send mail";
-
+    private static final Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
     public void sendmail() {
         sendingEmail(message, subject, to, from, cc);
+        
+        logger.debug("This is a debug message");
+        logger.info("This is an info message");
+        logger.warn("This is a warning message");
+        logger.error("This is an error message");
     }
 
     private static void sendingEmail(String message2, String subject2, String to2, String from2, String cc) {
@@ -30,7 +40,10 @@ public class EmailServiceImpl implements emailService {
         properties.put("mail.smtp.port", "465");
         properties.put("mail.smtp.ssl.enable", "true");
         properties.put("mail.smtp.auth", "true");
-
+        logger.debug("This is a debug message");
+        logger.info("This is an info message");
+        logger.warn("This is a warning message");
+        logger.error("This is an error message");
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {

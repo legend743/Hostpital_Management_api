@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -21,7 +22,8 @@ import jakarta.persistence.TemporalType;
 public class Appointment {
 
 	 @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "patient_id_generator")
+	  @SequenceGenerator(name="patient_id_generator", sequenceName = "patient_id_seq", initialValue = 1, allocationSize=1)
 	    private Long appointmentId;
 
 	    @ManyToOne
@@ -56,14 +58,7 @@ public class Appointment {
 		public void setDoctor(DoctorsDetails doctor) {
 			this.doctor = doctor;
 		}
-
-		public Long getPatient_id() {
-			return patient_id;
-		}
-
-		public void setPatient_id(Long patient_id) {
-			this.patient_id = patient_id;
-		}
+	
 
 		public Date getAppointmentTime() {
 			return appointmentTime;
@@ -88,5 +83,18 @@ public class Appointment {
 		public void setPatientName(String patientName) {
 			this.patientName = patientName;
 		}
+		
+		 public String getFormattedPatientId() {
+		        return "pt" + String.format("%04d", this.patient_id);
+		    }
+
+		public Long getPatient_id() {
+			return patient_id;
+		}
+
+		public void setPatient_id(Long patient_id) {
+			this.patient_id = patient_id;
+		}
+		
 	   
 }
