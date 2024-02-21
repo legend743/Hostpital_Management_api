@@ -86,17 +86,7 @@
     <artifactId>logback-classic</artifactId>
     <version>${logback.version}</version>
 </dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-thymeleaf</artifactId>
-</dependency>
 
-<!-- iText -->
-<dependency>
-    <groupId>com.itextpdf</groupId>
-    <artifactId>itext7-core</artifactId>
-    <version>7.1.16</version> <!-- Or the latest version available -->
-</dependency>
 	</dependencies>
 
 	<build>
