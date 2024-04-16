@@ -4,4 +4,6 @@ import com.example.Hospital.Entity.CBCReportEntity;
 
 public interface PathlabService{
 	String savecbcdetails(CBCReportEntity cbcreport );
+
+	void fileDownload(Long id);
 }

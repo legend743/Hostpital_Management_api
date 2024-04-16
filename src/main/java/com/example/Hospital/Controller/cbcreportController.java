@@ -1,8 +1,11 @@
 package com.example.Hospital.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Hospital.Entity.CBCReportEntity;
@@ -28,6 +31,20 @@ public class cbcreportController {
 		}
 		
 		return "report addded successfuly";
+	}
+	
+	@GetMapping("/fileDownload/{id}")
+	public void FileDownload(@PathVariable Long id){
+		try {
+			pathlabservice.fileDownload( id);
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		return ;
+		
+		
 	}
 
 }
