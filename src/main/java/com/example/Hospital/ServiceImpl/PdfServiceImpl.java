@@ -1,13 +1,7 @@
-
-
-
-
 package com.example.Hospital.ServiceImpl;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-
 import java.util.Optional;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +29,7 @@ public class PdfServiceImpl implements pdfService {
     @Override
     public ByteArrayInputStream pdfService(Long patientId) {
         logger.info("PDF generation started");
-        
+    	Long t=System.currentTimeMillis();
         // Retrieve patient details using the service method
         Optional<PatientsDetailsDto> patientDetailsOptional = hospService.getpatientsdetails(patientId);
         
@@ -75,10 +69,22 @@ public class PdfServiceImpl implements pdfService {
                 document.add(contentPara);
                 
                 document.close();
+             
             } catch (DocumentException e) {
                 logger.error("Error generating PDF: {}", e.getMessage());
             }
-            
+            // Convert the PDF content to byte array
+            byte[] pdfBytes = out.toByteArray();
+            int sizeOfFile=pdfBytes.length;
+            System.out.println("Size of PDF: " + pdfBytes.length + " bytes");
+            Long l=System.currentTimeMillis();
+          Long  diffrenceInTime=(t-l);
+       	 System.out.println("time taken for downloading a file"+diffrenceInTime);
+		 Long DownloadSpeed=(sizeOfFile)/diffrenceInTime;
+		 double ByteperSec=DownloadSpeed*1000;
+		  double transferRateKbPerS = ByteperSec / 1024; 
+		  System.out.println("Downlaod Speed: " + transferRateKbPerS + " KB/s");
+//		 System.out.println("Downlaod Speed"+DownloadSpeed+"Byte/ms");
             return new ByteArrayInputStream(out.toByteArray());
         } else {
             logger.error("Patient details not found for ID: {}", patientId);
