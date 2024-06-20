@@ -20,9 +20,12 @@ public class pdfController {
 	
 	@GetMapping("/pdfDownload/{id}")
 	public ResponseEntity<InputStreamResource> pdfService(@PathVariable Long id) {
+		Long t=System.currentTimeMillis();
 		ByteArrayInputStream pdf=pdfservice.pdfService(id);
 		 HttpHeaders httpheaders=new HttpHeaders();
 		 httpheaders.add("Content-Deposition","inline,file=mynewpdf");
+		 
+	
 		return ResponseEntity.
 				ok()
 				.headers(httpheaders)
